@@ -1,13 +1,9 @@
-
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 <template>
-  <div>App</div>
-  <el-button type="primary" size="default" >主要按钮
-  </el-button>
-
+  <div>
+    <router-view></router-view>
+  </div>
+ 
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
