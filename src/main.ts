@@ -7,10 +7,11 @@ import 'virtual:svg-icons-register'
 import router from './router'
 import gloablComponent from './components/index'
 import pinia from './store/index'
+import './permisstion'
 const app = createApp(App)
 app.use(ElementPlus, {
-    locale: zhCn,
-    size: 'default',
+  locale: zhCn,
+  size: 'default',
 })
 app.use(gloablComponent)
 app.use(router)

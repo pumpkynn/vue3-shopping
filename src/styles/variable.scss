@@ -1,3 +1,59 @@
 // 全局 SCSS 变量文件，如无变量可留空，后续可随时添加
-$primary-color: #409eff;
-$font-size-base: 14px;
+html,
+body,
+#app {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.layout_container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.layout_main {
+    overflow: auto;
+}
+
+.layout_main {
+    /* 隐藏滚动条，仅 Webkit 浏览器（Chrome、Edge、Safari）有效 */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
+}
+
+.layout_main::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari/Webkit */
+}
+
+$base-menu-width: 260px;
+$base-tabbar-height: 50px;
+$base-menu-background: #001529;
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #001529;
+    width: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #001529;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #001529;
+}
+
+$base-logo-height: 50px;
+$base-logo-title-fontSize: 20px;
+$base-menu-min-width: 50px;

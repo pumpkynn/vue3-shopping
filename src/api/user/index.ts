@@ -1,9 +1,11 @@
 import request from '../../utils/request'
-import type { loginForm, loginResponseData, userResponseData } from "./type"
+import type { LoginForm, loginResponseData, userResponseData } from './type'
 const API = {
     LOGIN_URL: '/user/login',
     USERINFO_URL: '/user/info',
 }
 
-export const reqLogin = (data: loginForm) => request.post<any, loginResponseData>(API.LOGIN_URL, data)
-export const reqUserInfo = () => request.get<any, userResponseData>(API.USERINFO_URL)
+export const reqLogin = (data: LoginForm) =>
+    request.post<any, loginResponseData>(API.LOGIN_URL, data)
+export const reqUserInfo = () =>
+    request.get<any, userResponseData>(API.USERINFO_URL)
