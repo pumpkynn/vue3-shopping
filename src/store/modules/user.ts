@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { reqLogin, reqUserInfo } from '../../api/user/index'
-import type { LoginForm, loginResponseData } from '../../api/user/type'
+import { reqLogin, reqUserInfo, reqLogout } from '../../api/user/index'
 import type { UserState } from './types/types'
 import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '../../utils/token'
 import { constantRoute } from '../../router/routers'
@@ -9,29 +8,32 @@ const useUserStore = defineStore('user', {
         return {
             token: GET_TOKEN() || '',
             menuRoutes: constantRoute,
-            username: 'Admin',
-            avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+            username: '',
+            avatar:
+                '',
         }
     },
     actions: {
         //用户登录的方法
-        async userLogin(data: LoginForm) {
-            let result: loginResponseData = await reqLogin(data);
+        async userLogin(data: any) {
+            console.log('登录传入的数据', data)
+            let result: any = await reqLogin(data)
+            console.log('接口返回的数据', result)
             if (result.code == 200) {
-                this.token = (result.data.token as string);
-                SET_TOKEN(this.token as string);
-                return true;
+                this.token = result.data as string
+                SET_TOKEN(this.token)
+                return true
             } else {
-                throw new Error(result.data.message || '登录失败');
+                throw new Error(result.data.message || '登录失败')
             }
         },
-        //获取用户信息的方法
+        //获取用户信息的方法  
         async userInfo() {
             let result = await reqUserInfo()
+            console.log('用户信息', result.data)
             if (result.code == 200) {
-                this.username = result.data.checkUser.username
-                // 头像始终使用指定URL
-                this.avatar = 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+                this.username = result.data.name
+                this.avatar = result.data.avatar
                 return 'ok'
             } else {
                 return Promise.reject('获取用户信息失败')
@@ -39,13 +41,21 @@ const useUserStore = defineStore('user', {
         },
         //退出登录的方法
         async userLogout() {
-            this.token = '',
-                this.username = '',
-                this.avatar = '',
+            let result = await reqLogout()
+            console.log('退出登录', result)
+            if (result.code == 200) {
+                this.token = ''
+                this.username = ''
+                this.avatar = ''
                 REMOVE_TOKEN()
-        }
+                return 'ok'
+            } else {
+                return Promise.reject(new Error(result.data.message))
+            }
+
+        },
     },
-    getters: {}
+    getters: {},
 })
 
 export default useUserStore

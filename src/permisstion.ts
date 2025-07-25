@@ -3,7 +3,7 @@ import router from './router'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 nprogress.configure({
-    showSpinner: false
+    showSpinner: false,
 })
 import useUserStore from './store/modules/user'
 import pinia from './store'
@@ -13,7 +13,7 @@ let userStore = useUserStore(pinia)
 //全局前置守卫
 router.beforeEach(async (to: any, from: any, next: any) => {
     document.title = `${settings.title}-${to.meta.title}`
-    nprogress.start();
+    nprogress.start()
     let token = userStore.token
     let username = userStore.username
     if (token) {
@@ -29,9 +29,8 @@ router.beforeEach(async (to: any, from: any, next: any) => {
                 } catch (error) {
                     //token过期
                     //用户手动清理本地token
-                    userStore.userLogout()
+                    await userStore.userLogout()
                     next({ path: '/login', query: { redirect: to.path } })
-
                 }
             }
         }
@@ -41,7 +40,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
         } else {
             next({
                 path: '/login',
-                query: { redirect: to.path }
+                query: { redirect: to.path },
             })
         }
     }
@@ -49,5 +48,5 @@ router.beforeEach(async (to: any, from: any, next: any) => {
 
 //全局后置守卫
 router.afterEach((to: any, from: any, next: any) => {
-    nprogress.done();
+    nprogress.done()
 })

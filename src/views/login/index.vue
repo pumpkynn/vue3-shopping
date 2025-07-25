@@ -45,7 +45,7 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import useUserStore from '../../store/modules/user'
-import { useRouter ,useRoute} from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '../../utils/time'
 let $router = useRouter()
@@ -87,7 +87,7 @@ const login = async () => {
   loading.value = true
   try {
     await useStore.userLogin(loginForm)
-    let redirect : any = $route.query.redirect
+    let redirect: any = $route.query.redirect
     $router.push({
       path: redirect || '/home',
     })

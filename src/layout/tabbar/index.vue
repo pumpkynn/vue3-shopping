@@ -1,10 +1,10 @@
 <template>
   <div class="tabbar">
     <div class="tabbar_left">
-        <Breadcrumb></Breadcrumb>
+      <Breadcrumb></Breadcrumb>
     </div>
     <div class="tabbar_right">
-        <Setting></Setting>
+      <Setting></Setting>
     </div>
   </div>
 </template>
@@ -14,7 +14,7 @@ import Setting from './setting/index.vue'
 </script>
 <script lang="ts">
 export default {
-    name: 'Tabbar'
+  name: 'Tabbar',
 }
 </script>
 <style scoped lang="scss">
@@ -24,7 +24,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-image: linear-gradient(to right, white,white);
+  background-image: linear-gradient(to right, white, white);
   .tabbar_left {
     margin-left: 20px;
     display: flex;
@@ -35,8 +35,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    
   }
 }
-
 </style>
