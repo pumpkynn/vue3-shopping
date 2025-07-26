@@ -4,14 +4,23 @@
     icon="Refresh"
     circle
     @click="updateRefresh"
+    style="margin-right: 5px;"
   ></el-button>
   <el-button
     size="small"
     icon="FullScreen"
     circle
     @click="FullScreen"
+    style="margin-right: 5px;"
   ></el-button>
-  <el-button size="small" icon="Setting" circle></el-button>
+  <el-button 
+    size="small" 
+    icon="Setting" 
+    circle 
+    @click="showThemeDrawer = true"
+    style="margin-right: 10px;"
+  ></el-button>
+ 
   <img
     :src="userStore.avatar"
     alt=""
@@ -28,8 +37,28 @@
       </el-dropdown-menu>
     </template>
   </el-dropdown>
+
+  <el-drawer
+    v-model="showThemeDrawer"
+    title="主题设置"
+    direction="rtl"
+    size="260px"
+  >
+    <el-form>
+      <el-form-item label="主题颜色">
+        <el-color-picker v-model="color" :predefine="predefineColors" size="small" @change="changeColor" />
+      </el-form-item>
+      <el-form-item label="暗黑模式">
+        <el-switch :active-icon="Moon" :inactive-icon="Sunny" size="small" v-model="isDark" class="mt-2"
+          @change="changeDark"
+          inline-prompt />
+      </el-form-item>
+    </el-form>
+  </el-drawer>
 </template>
 <script setup lang="ts">
+import { ref } from 'vue'
+import { Moon, Sunny } from '@element-plus/icons-vue'
 import useLayOutSettingStore from '../../../store/modules/setting'
 import useUserStore from '../../../store/modules/user'
 import { useRouter, useRoute } from 'vue-router'
@@ -37,22 +66,36 @@ let $router = useRouter()
 let $route = useRoute()
 const LayOutSettingStore = useLayOutSettingStore()
 const userStore = useUserStore()
+const isDark = ref<boolean>(document.documentElement.classList.contains('dark'))
+const showThemeDrawer = ref(false)
 const updateRefresh = () => {
   LayOutSettingStore.refresh = !LayOutSettingStore.refresh
 }
 const FullScreen = () => {
-  //Dom对象的一个属性，用来判断当前是不是全屏，[全屏：true，非全屏：false]
-
   if (!document.fullscreenElement) {
-    //利用文档的根节点的requestFullscreen方法实现全屏
     document.documentElement.requestFullscreen()
   } else {
-    //利用文档的根节点的exitFullscreen方法实现退出全屏
     document.exitFullscreen()
   }
 }
+const color = ref(getComputedStyle(document.documentElement).getPropertyValue('--el-color-primary') || '#409EFF')
+const predefineColors = ref([
+  '#ff4500',
+  '#ff8c00',
+  '#ffd700',
+  '#90ee90',
+  '#00ced1',
+  '#1e90ff',
+  '#c71585',
+  'rgba(255, 69, 0, 0.68)',
+  'rgb(255, 120, 0)',
+  'hsv(51, 100, 98)',
+  'hsva(120, 40, 94, 0.5)',
+  'hsl(181, 100%, 37%)',
+  'hsla(209, 100%, 56%, 0.73)',
+  '#c7158577',
+])
 const logout = async () => {
-  //退出登录，向服务器发请求[退出登录接口]
   await userStore.userLogout()
   $router.push({
     path: '/login',
@@ -61,10 +104,19 @@ const logout = async () => {
     },
   })
 }
-</script>
-<script lang="ts">
-export default {
-  name: 'Setting',
+const changeDark = () => {
+  const html = document.documentElement
+  isDark.value?html.className='dark':html.className=''
+}
+const changeColor = () => {
+  const html = document.documentElement
+  html.style.setProperty('--el-color-primary', color.value)
+  html.style.setProperty('--el-color-primary-light-3', color.value)
+  html.style.setProperty('--el-color-primary-light-5', color.value)
+  html.style.setProperty('--el-color-primary-light-7', color.value)
+  html.style.setProperty('--el-color-primary-light-8', color.value)
+  html.style.setProperty('--el-color-primary-light-9', color.value)
+  html.style.setProperty('--el-color-primary-dark-2', color.value)
 }
 </script>
 <style scoped lang="scss">
@@ -80,4 +132,5 @@ export default {
   border: none !important;
   box-shadow: none !important;
 }
+
 </style>

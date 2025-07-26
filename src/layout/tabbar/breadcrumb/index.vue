@@ -6,7 +6,7 @@
   <el-breadcrumb separator-icon="ArrowRight">
     <!-- 面包屑需要根据路由的path来生成 -->
     <el-breadcrumb-item
-      v-for="(item, index) in $route.matched"
+      v-for="(item) in $route.matched"
       :key="item.path"
       v-show="item.meta.title"
       :to="item.path"
@@ -23,9 +23,6 @@ import useLayOutSettingStore from '../../../store/modules/setting'
 import { useRoute } from 'vue-router'
 const LayOutSettingStore = useLayOutSettingStore()
 const $route = useRoute()
-const handler = () => {
-  console.log($route.matched)
-}
 const changeIcon = () => {
   LayOutSettingStore.fold = !LayOutSettingStore.fold
 }

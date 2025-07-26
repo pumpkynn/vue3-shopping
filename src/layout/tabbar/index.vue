@@ -24,7 +24,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-image: linear-gradient(to right, white, white);
   .tabbar_left {
     margin-left: 20px;
     display: flex;
