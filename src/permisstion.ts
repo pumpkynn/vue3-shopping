@@ -3,7 +3,7 @@ import router from './router'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 nprogress.configure({
-    showSpinner: false,
+  showSpinner: false,
 })
 import useUserStore from './store/modules/user'
 import pinia from './store'
@@ -12,41 +12,41 @@ let userStore = useUserStore(pinia)
 
 //全局前置守卫
 router.beforeEach(async (to: any, from: any, next: any) => {
-    document.title = `${settings.title}-${to.meta.title}`
-    nprogress.start()
-    let token = userStore.token
-    let username = userStore.username
-    if (token) {
-        if (to.path == '/login') {
-            next({ path: '/home', query: { redirect: to.path } })
-        } else {
-            if (username) {
-                next()
-            } else {
-                try {
-                    await userStore.userInfo()
-                    next()
-                } catch (error) {
-                    //token过期
-                    //用户手动清理本地token
-                    await userStore.userLogout()
-                    next({ path: '/login', query: { redirect: to.path } })
-                }
-            }
-        }
+  document.title = `${settings.title}-${to.meta.title}`
+  nprogress.start()
+  let token = userStore.token
+  let username = userStore.username
+  if (token) {
+    if (to.path == '/login') {
+      next({ path: '/home', query: { redirect: to.path } })
     } else {
-        if (to.path == '/login') {
-            next()
-        } else {
-            next({
-                path: '/login',
-                query: { redirect: to.path },
-            })
+      if (username) {
+        next()
+      } else {
+        try {
+          await userStore.userInfo()
+          next()
+        } catch (error) {
+          //token过期
+          //用户手动清理本地token
+          await userStore.userLogout()
+          next({ path: '/login', query: { redirect: to.path } })
         }
+      }
     }
+  } else {
+    if (to.path == '/login') {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: { redirect: to.path },
+      })
+    }
+  }
 })
 
 //全局后置守卫
 router.afterEach((to: any, from: any, next: any) => {
-    nprogress.done()
+  nprogress.done()
 })

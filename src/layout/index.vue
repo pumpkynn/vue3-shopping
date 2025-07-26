@@ -106,7 +106,7 @@ export default {
   width: calc(100% - $base-menu-width);
   height: calc(100vh - $base-tabbar-height);
   top: $base-tabbar-height;
-  
+
   padding: 20px;
   overflow: auto;
   border: 1px solid rgb(228, 228, 231);

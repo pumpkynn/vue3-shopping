@@ -11,5 +11,4 @@ export const reqLogin = (data: LoginForm) =>
 export const reqUserInfo = () =>
   request.get<any, userResponseData>(API.USERINFO_URL)
 
-export const reqLogout = () =>
-  request.post<any, any>(API.LOGOUT_URL)
+export const reqLogout = () => request.post<any, any>(API.LOGOUT_URL)
