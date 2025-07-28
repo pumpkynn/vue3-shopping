@@ -23,22 +23,29 @@ request.interceptors.response.use(
     // 处理网络错误
     let msg = ''
     let status = error.response?.status
-    switch (status) {
-      case 401:
-        msg = 'token过期'
-        break
-      case 403:
-        msg = '无权访问'
-        break
-      case 404:
-        msg = '请求地址错误'
-        break
-      case 500:
-        msg = '服务器出现问题'
-        break
-      default:
-        msg = '无网络'
+
+    // 处理超时错误
+    if (error.code === 'ECONNABORTED' && error.message.includes('timeout')) {
+      msg = '请求超时，请稍后重试'
+    } else {
+      switch (status) {
+        case 401:
+          msg = 'token过期'
+          break
+        case 403:
+          msg = '无权访问'
+          break
+        case 404:
+          msg = '请求地址错误'
+          break
+        case 500:
+          msg = '服务器出现问题'
+          break
+        default:
+          msg = '无网络'
+      }
     }
+
     ElMessage({
       type: 'error',
       message: msg,

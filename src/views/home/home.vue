@@ -1,5 +1,5 @@
-<template> 
-   <div>
+<template>
+  <div>
     <!-- <el-card></el-card> -->
     <div class="box">
       <img :src="userStore.avatar" alt="" />
@@ -8,10 +8,10 @@
         <p>Vue-Admin</p>
       </div>
     </div>
-    <el-card  style="margin: 30px 0;width: 98%;">
+    <el-card style="margin: 30px 0; width: 98%">
       <template #header>
         <div>
-          <span style="font-weight:bold; font-size: 20px;">技术栈</span>
+          <span style="font-weight: bold; font-size: 20px">技术栈</span>
         </div>
       </template>
       <div class="content">
@@ -104,7 +104,6 @@ a {
     h1 {
       font-size: 30px;
       font-weight: 700;
-    
     }
     p {
       font-size: 20px;

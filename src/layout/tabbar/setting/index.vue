@@ -4,23 +4,23 @@
     icon="Refresh"
     circle
     @click="updateRefresh"
-    style="margin-right: 5px;"
+    style="margin-right: 5px"
   ></el-button>
   <el-button
     size="small"
     icon="FullScreen"
     circle
     @click="FullScreen"
-    style="margin-right: 5px;"
+    style="margin-right: 5px"
   ></el-button>
-  <el-button 
-    size="small" 
-    icon="Setting" 
-    circle 
+  <el-button
+    size="small"
+    icon="Setting"
+    circle
     @click="showThemeDrawer = true"
-    style="margin-right: 10px;"
+    style="margin-right: 10px"
   ></el-button>
- 
+
   <img
     :src="userStore.avatar"
     alt=""
@@ -46,12 +46,23 @@
   >
     <el-form>
       <el-form-item label="主题颜色">
-        <el-color-picker v-model="color" :predefine="predefineColors" size="small" @change="changeColor" />
+        <el-color-picker
+          v-model="color"
+          :predefine="predefineColors"
+          size="small"
+          @change="changeColor"
+        />
       </el-form-item>
       <el-form-item label="暗黑模式">
-        <el-switch :active-icon="Moon" :inactive-icon="Sunny" size="small" v-model="isDark" class="mt-2"
+        <el-switch
+          :active-icon="Moon"
+          :inactive-icon="Sunny"
+          size="small"
+          v-model="isDark"
+          class="mt-2"
           @change="changeDark"
-          inline-prompt />
+          inline-prompt
+        />
       </el-form-item>
     </el-form>
   </el-drawer>
@@ -78,7 +89,11 @@ const FullScreen = () => {
     document.exitFullscreen()
   }
 }
-const color = ref(getComputedStyle(document.documentElement).getPropertyValue('--el-color-primary') || '#409EFF')
+const color = ref(
+  getComputedStyle(document.documentElement).getPropertyValue(
+    '--el-color-primary',
+  ) || '#409EFF',
+)
 const predefineColors = ref([
   '#ff4500',
   '#ff8c00',
@@ -106,7 +121,7 @@ const logout = async () => {
 }
 const changeDark = () => {
   const html = document.documentElement
-  isDark.value?html.className='dark':html.className=''
+  isDark.value ? (html.className = 'dark') : (html.className = '')
 }
 const changeColor = () => {
   const html = document.documentElement
@@ -132,5 +147,4 @@ const changeColor = () => {
   border: none !important;
   box-shadow: none !important;
 }
-
 </style>

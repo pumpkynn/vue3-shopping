@@ -6,7 +6,7 @@
   <el-breadcrumb separator-icon="ArrowRight">
     <!-- 面包屑需要根据路由的path来生成 -->
     <el-breadcrumb-item
-      v-for="(item) in $route.matched"
+      v-for="item in $route.matched"
       :key="item.path"
       v-show="item.meta.title"
       :to="item.path"
