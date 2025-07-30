@@ -7,6 +7,8 @@ import type {
     SaleAttrResponseData,
     HASSaleAttrResponseData,
     SpuData,
+    SkuData,
+    SkuInfoData,
 } from './type'
 const API = {
     //获取已有的SPU数据
@@ -22,6 +24,9 @@ const API = {
     ADDSPU_URL: '/admin/product/saveSpuInfo',
     //修改SPU
     UPDATESPU_URL: '/admin/product/updateSpuInfo',
+    ADDSKU_URL: '/admin/product/saveSkuInfo',
+    SKUINFO_URL: '/admin/product/findBySpuId/',
+    REMOVESPU_URL: '/admin/product/deleteSku/',
 }
 export const reqHasSpu = (
     page: number,
@@ -50,4 +55,10 @@ export const reqAddOrUpdateSpu = (data: SpuData) => {
         return request.post<any, any>(API.ADDSPU_URL, data)
     }
 }
+export const reqAddSku = (data: SkuData) =>
+    request.post<any, any>(API.ADDSKU_URL, data)
 
+export const reqSkuList = (spuId: number) =>
+    request.get<any, SkuInfoData>(API.SKUINFO_URL + `${spuId}`)
+export const reqRemoveSku = (skuId: number) =>
+    request.delete<any, any>(API.REMOVESPU_URL + `${skuId}`)
