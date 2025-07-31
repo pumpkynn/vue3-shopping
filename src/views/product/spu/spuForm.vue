@@ -89,7 +89,12 @@
               v-for="item in row.spuSaleAttrValueList"
               :key="item.id"
               closable
-              @close="row.spuSaleAttrValueList.splice(row.spuSaleAttrValueList.indexOf(item), 1)"
+              @close="
+                row.spuSaleAttrValueList.splice(
+                  row.spuSaleAttrValueList.indexOf(item),
+                  1,
+                )
+              "
             >
               {{ item.saleAttrValueName }}
             </el-tag>

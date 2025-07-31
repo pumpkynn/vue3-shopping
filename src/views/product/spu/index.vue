@@ -44,9 +44,18 @@
                 title="查看SPU"
                 @click="findSku(row)"
               ></el-button>
-              <el-popconfirm :title="`确定删除${row.spuName}吗？`" width="200px" @confirm="confirm(row.id)">
+              <el-popconfirm
+                :title="`确定删除${row.spuName}吗？`"
+                width="200px"
+                @confirm="confirm(row.id)"
+              >
                 <template #reference>
-                  <el-button type="danger" :icon="Delete" size="small" title="删除SPU"></el-button>
+                  <el-button
+                    type="danger"
+                    :icon="Delete"
+                    size="small"
+                    title="删除SPU"
+                  ></el-button>
                 </template>
               </el-popconfirm>
             </template>
@@ -71,19 +80,26 @@
       ></SpuForm>
 
       <!-- 添加SKU的子组件 -->
-      <SkuForm v-show="scene === 2" @changeScene="changeScene" ref="skuFormRef"></SkuForm>
-     <el-dialog title="SKU列表" v-model="show" width="50%">
-       <el-table border :data="skuArr">
-                    <el-table-column label="SKU名字" prop="skuName"></el-table-column>
-                    <el-table-column label="SKU价格" prop="price"></el-table-column>
-                    <el-table-column label="SKU重量" prop="weight"></el-table-column>
-                    <el-table-column label="SKU图片">
-                        <template #default="{ row }">
-                            <img :src="row.skuDefaultImg" style="width: 100px;height: 100px;">
-                        </template>
-                    </el-table-column>
-                </el-table>
-     </el-dialog>
+      <SkuForm
+        v-show="scene === 2"
+        @changeScene="changeScene"
+        ref="skuFormRef"
+      ></SkuForm>
+      <el-dialog title="SKU列表" v-model="show" width="50%">
+        <el-table border :data="skuArr">
+          <el-table-column label="SKU名字" prop="skuName"></el-table-column>
+          <el-table-column label="SKU价格" prop="price"></el-table-column>
+          <el-table-column label="SKU重量" prop="weight"></el-table-column>
+          <el-table-column label="SKU图片">
+            <template #default="{ row }">
+              <img
+                :src="row.skuDefaultImg"
+                style="width: 100px; height: 100px"
+              />
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -92,7 +108,12 @@ import { ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Plus, Edit, Delete, View } from '@element-plus/icons-vue'
 import { useCategoryStore } from '../../../store/modules/category'
-import { reqHasSpu, reqAllSaleAttr,reqSkuList,reqRemoveSku } from '../../../api/product/spu'
+import {
+  reqHasSpu,
+  reqAllSaleAttr,
+  reqSkuList,
+  reqRemoveSku,
+} from '../../../api/product/spu'
 import type {
   HasSpuResponseData,
   Records,
@@ -154,11 +175,11 @@ const addSpu = () => {
   console.log('spuFormRef.value', spuFormRef.value)
 }
 //修改场景
-const changeScene = (obj:any) => {
+const changeScene = (obj: any) => {
   scene.value = obj.flag
-  if(obj.params == 'update'){
+  if (obj.params == 'update') {
     getHasSpu(currentPage.value)
-  }else{
+  } else {
     getHasSpu()
   }
 }
@@ -175,33 +196,32 @@ const initHasSpuData = async () => {
 }
 const addSku = (row: SpuData) => {
   scene.value = 2
-  skuFormRef.value.initSkuData(categoryStore.c1Id,categoryStore.c2Id,row)
+  skuFormRef.value.initSkuData(categoryStore.c1Id, categoryStore.c2Id, row)
 }
 const findSku = async (row: SpuData) => {
- const res :SkuInfoData =await reqSkuList ((row.id as number))
- if(res.code == 200){
-  skuArr.value = res.data
-  show.value = true
- }
+  const res: SkuInfoData = await reqSkuList(row.id as number)
+  if (res.code == 200) {
+    skuArr.value = res.data
+    show.value = true
+  }
 }
-const confirm = async (row:SpuData) => {
+const confirm = async (row: SpuData) => {
   const res = await reqRemoveSku(row.id as number)
-  if(res.code == 200){
+  if (res.code == 200) {
     ElMessage({
       type: 'success',
-      message: '删除成功'
+      message: '删除成功',
     })
     getHasSpu(currentPage.value)
-  }else{
+  } else {
     ElMessage({
       type: 'error',
-      message: '删除失败'
+      message: '删除失败',
     })
   }
 }
 defineExpose({
   initHasSpuData,
-  
 })
 </script>
 <style scoped lang="scss"></style>
