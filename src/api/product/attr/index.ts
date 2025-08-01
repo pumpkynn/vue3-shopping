@@ -13,6 +13,7 @@ const API = {
   DELETEATTR_URL: '/admin/product/deleteAttr/',
   //修改属性
   UPDATE_ATTR_URL: '/admin/product/updateAttr/',
+
 }
 export const reqC1 = () => request.get<any, CategoryResponseData>(API.C1_URL)
 //获取二级分类的接口,需要携带参数，根据一级分类的id获取二级分类

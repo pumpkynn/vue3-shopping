@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import path from 'path'
+import { fileURLToPath, URL } from 'node:url'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { viteMockServe } from 'vite-plugin-mock'
 
@@ -15,7 +15,7 @@ export default defineConfig(({ command, mode }) => {
     plugins: [
       vue(),
       createSvgIconsPlugin({
-        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+        iconDirs: [fileURLToPath(new URL('./src/assets/icons', import.meta.url))],
         symbolId: 'icon-[dir]-[name]',
       }),
       viteMockServe({
@@ -25,7 +25,7 @@ export default defineConfig(({ command, mode }) => {
     ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, 'src'),
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
     css: {

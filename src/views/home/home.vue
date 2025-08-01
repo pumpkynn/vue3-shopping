@@ -98,12 +98,13 @@ a {
   .right {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content: center;
+    align-items: center;
     margin-left: 30px;
     h1 {
       font-size: 30px;
       font-weight: 700;
+      color: darkgrey;
     }
     p {
       font-size: 20px;
@@ -111,6 +112,7 @@ a {
       font-style: italic;
     }
   }
+
 }
 .content {
   display: grid;
@@ -119,7 +121,7 @@ a {
   gap: 10px;
   .item {
     border-radius: 5px;
-    border: 1px solid rgb(228, 231, 237);
+   border: 1px solid rgb(228, 231, 237);
     padding: 10px;
     transition:
       transform 0.2s ease-in-out,

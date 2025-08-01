@@ -36,6 +36,7 @@ $base-menu-width: 260px;
 $base-tabbar-height: 50px;
 $base-menu-background: #001529;
 
+
 ::-webkit-scrollbar {
     width: 0px;
 }
@@ -52,8 +53,9 @@ $base-menu-background: #001529;
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: #001529;
+
 }
 
 $base-logo-height: 50px;
 $base-logo-title-fontSize: 20px;
-$base-menu-min-width: 50px;
+$base-menu-min-width: 70px;

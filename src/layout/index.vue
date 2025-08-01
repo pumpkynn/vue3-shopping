@@ -1,6 +1,9 @@
 <template>
   <div class="layout_container">
-    <div class="layout_slider">
+    <div 
+      class="layout_slider"
+      :class="{ fold: LayOutSettingStore.fold ? true : false }"
+    >
       <Logo></Logo>
       <el-scrollbar class="scrollbar">
         <el-menu
@@ -42,6 +45,7 @@ const LayOutSettingStore = useLayOutSettingStore()
 
 const userStore = useUserStore()
 const $router = useRouter()
+console.log($router.currentRoute.value.path)
 const menuRoutes = computed(() => userStore.menuRoutes || [])
 </script>
 <script lang="ts">
@@ -58,7 +62,7 @@ export default {
 }
 .layout_slider {
   width: $base-menu-width;
-  height: 100vh;
+  height: 100%;
   background-color: $base-menu-background;
   transition: all 0.3s;
   .el-menu {
@@ -85,6 +89,9 @@ export default {
     height: calc(100% - $base-logo-height);
     // 不加 width
   }
+  &.fold{
+    width: $base-menu-min-width;
+  }
 }
 .layout_tabbar {
   position: absolute;
@@ -106,10 +113,10 @@ export default {
   width: calc(100% - $base-menu-width);
   height: calc(100vh - $base-tabbar-height);
   top: $base-tabbar-height;
-
+  
   padding: 20px;
   overflow: auto;
-  border: 1px solid rgb(228, 228, 231);
+  // border: 1px solid rgb(228, 228, 231);
   border-right: none;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.3s;
