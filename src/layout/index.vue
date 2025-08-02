@@ -1,6 +1,6 @@
 <template>
   <div class="layout_container">
-    <div 
+    <div
       class="layout_slider"
       :class="{ fold: LayOutSettingStore.fold ? true : false }"
     >
@@ -89,7 +89,7 @@ export default {
     height: calc(100% - $base-logo-height);
     // 不加 width
   }
-  &.fold{
+  &.fold {
     width: $base-menu-min-width;
   }
 }
@@ -113,7 +113,7 @@ export default {
   width: calc(100% - $base-menu-width);
   height: calc(100vh - $base-tabbar-height);
   top: $base-tabbar-height;
-  
+
   padding: 20px;
   overflow: auto;
   // border: 1px solid rgb(228, 228, 231);

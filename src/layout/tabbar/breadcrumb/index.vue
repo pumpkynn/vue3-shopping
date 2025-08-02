@@ -1,9 +1,5 @@
 <template>
-  <el-icon 
-    style="margin-right: 10px" 
-    @click="changeIcon"
-    class="fold-icon"
-  >
+  <el-icon style="margin-right: 10px" @click="changeIcon" class="fold-icon">
     <component :is="LayOutSettingStore.fold ? 'Fold' : 'Expand'"></component>
   </el-icon>
 
@@ -38,19 +34,19 @@ export default {
 </script>
 <style scoped lang="scss">
 .fold-icon {
-  color:darkgrey;
+  color: darkgrey;
   cursor: pointer;
   transition: all 0.3s;
-  
+
   &:hover {
-    color: #409EFF;
+    color: #409eff;
   }
 }
 
 // 暗黑模式下的样式
 :global(.dark) .fold-icon {
   color: #fff;
-  
+
   &:hover {
     color: #60a5fa;
   }

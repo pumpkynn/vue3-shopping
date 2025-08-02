@@ -112,7 +112,6 @@ a {
       font-style: italic;
     }
   }
-
 }
 .content {
   display: grid;
@@ -121,7 +120,7 @@ a {
   gap: 10px;
   .item {
     border-radius: 5px;
-   border: 1px solid rgb(228, 231, 237);
+    border: 1px solid rgb(228, 231, 237);
     padding: 10px;
     transition:
       transform 0.2s ease-in-out,
