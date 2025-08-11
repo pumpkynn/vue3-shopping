@@ -46,22 +46,22 @@ const goBack = () => {
   align-items: flex-start;
   background-color: #f5f5f5;
   padding: 50px;
-  
+
   .error-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    
+
     .error-image {
       margin-bottom: 30px;
-      
+
       img {
         width: 400px;
         height: auto;
         max-width: 90%;
       }
     }
-    
+
     .error-info {
       .error-message {
         font-size: 1.5rem;
@@ -69,19 +69,19 @@ const goBack = () => {
         margin: 0 0 8px 0;
         font-weight: 500;
       }
-      
+
       .error-desc {
         font-size: 1rem;
         color: var(--el-text-color-regular);
         margin: 0 0 30px 0;
         line-height: 1.5;
       }
-      
+
       .error-actions {
         display: flex;
         gap: 20px;
         justify-content: flex-start;
-        
+
         .el-button {
           display: flex;
           align-items: center;
@@ -97,22 +97,22 @@ const goBack = () => {
 @media (max-width: 768px) {
   .error-container {
     padding: 30px;
-    
+
     .error-content {
       .error-image img {
         width: 300px;
       }
-      
+
       .error-info {
         .error-message {
           font-size: 1.2rem;
         }
-        
+
         .error-actions {
           flex-direction: column;
           align-items: flex-start;
           gap: 15px;
-          
+
           .el-button {
             width: 200px;
           }

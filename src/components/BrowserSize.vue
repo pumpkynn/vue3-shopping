@@ -2,9 +2,18 @@
   <div class="browser-size-debug">
     <h3>浏览器尺寸信息</h3>
     <div class="size-info">
-      <p><strong>视口尺寸:</strong> {{ viewportWidth }} x {{ viewportHeight }}</p>
-      <p><strong>屏幕尺寸:</strong> {{ screenWidth }} x {{ screenHeight }}</p>
-      <p><strong>文档尺寸:</strong> {{ documentWidth }} x {{ documentHeight }}</p>
+      <p>
+        <strong>视口尺寸:</strong>
+        {{ viewportWidth }} x {{ viewportHeight }}
+      </p>
+      <p>
+        <strong>屏幕尺寸:</strong>
+        {{ screenWidth }} x {{ screenHeight }}
+      </p>
+      <p>
+        <strong>文档尺寸:</strong>
+        {{ documentWidth }} x {{ documentHeight }}
+      </p>
     </div>
   </div>
 </template>
@@ -61,4 +70,4 @@ h3 {
   margin: 0 0 10px 0;
   font-size: 14px;
 }
-</style> 
+</style>
