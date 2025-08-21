@@ -180,8 +180,10 @@ const getHasSku = async (pager = 1) => {
     skuArr.value = result.data.records
   }
 }
-const handler = () => {
-  getHasSku()
+const handler = (size: number) => {
+  pageSize.value = size
+  PageNo.value = 1 // 重置到第一页
+  getHasSku(1)
 }
 const updateSale = async (row: SkuData) => {
   if (row.isSale == 1) {

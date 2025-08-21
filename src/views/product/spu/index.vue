@@ -166,7 +166,8 @@ const getHasSpu = async (pager = 1) => {
 //修改每页条数
 const changeSize = (size: number) => {
   pageSize.value = size
-  getHasSpu()
+  currentPage.value = 1 // 重置到第一页
+  getHasSpu(1)
 }
 //添加SPU
 const addSpu = () => {

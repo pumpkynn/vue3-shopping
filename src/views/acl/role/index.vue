@@ -222,7 +222,8 @@ const getHasRole = async (pager: number = 1) => {
 }
 const sizeChange = (size: number) => {
   pageSize.value = size
-  getHasRole()
+  currentPage.value = 1 // 重置到第一页
+  getHasRole(1)
 }
 const searchRole = () => {
   getHasRole()

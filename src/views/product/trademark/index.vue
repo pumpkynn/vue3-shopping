@@ -89,6 +89,9 @@
             :show-file-list="false"
             :before-upload="beforeLogoUpload"
             :on-success="handleAvatarSuccess"
+            :on-error="handleUploadError"
+            :headers="uploadHeaders"
+            accept="image/jpeg,image/png,image/jpg"
           >
             <img
               v-if="trademarkParams.logoUrl"
@@ -109,7 +112,8 @@
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 import { Plus, Edit, Delete } from '@element-plus/icons-vue'
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted, reactive, computed } from 'vue'
+import useUserStore from '../../../store/modules/user'
 import {
   reqHasTrademark,
   reqAddOrUpdateTrademark,
@@ -121,6 +125,9 @@ import type {
   Trademark,
 } from '../../../api/product/trademark/type'
 import type { UploadProps } from 'element-plus'
+// el-upload 不走全局 axios，需要手动注入 token
+const userStore = useUserStore()
+const uploadHeaders = computed(() => ({ token: userStore.token }))
 const currentPage = ref(1)
 const pageSize = ref(3)
 const size = ref('small')
@@ -145,16 +152,17 @@ const getHasTrademark = async (page = 1) => {
 onMounted(() => {
   getHasTrademark()
 })
-const changePageNo = (size: number) => {
+const changePageNo = (page: number) => {
   //当前页码发生变化时，重新获取数据
-  getHasTrademark()
-  console.log(size)
+  getHasTrademark(page)
+  console.log('当前页码:', page)
 }
-const sizeChange = () => {
+const sizeChange = (size: number) => {
   //每页条数发生变化时，重新获取数据,需要再发请求
   // 当前页码数据量发生变化时，当前页码需要重置为1
+  pageSize.value = size
   currentPage.value = 1
-  getHasTrademark()
+  getHasTrademark(1)
 }
 const addTrademark = () => {
   trademarkParams.id = undefined
@@ -175,12 +183,27 @@ const editTrademark = (row: Trademark) => {
 }
 // el-upload 的 on-success 事件
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
-  response,
-  uploadFile,
+  response: any,
+  _uploadFile?,
 ) => {
-  // 假设后端返回 { code: 200, data: { url: '图片地址' } }
-  trademarkParams.logoUrl = response.data // 按实际结构调整
-  formRef.value.clearValidate('logoUrl')
+  let url = ''
+  if (typeof response === 'string') {
+    url = response
+  } else if (typeof response?.data === 'string') {
+    url = response.data
+  } else if (response?.data?.url) {
+    url = response.data.url
+  }
+  if (!url) {
+    ElMessage.error('上传成功但未获取到图片地址')
+    return
+  }
+  trademarkParams.logoUrl = url
+  formRef.value?.clearValidate('logoUrl')
+}
+
+const handleUploadError: UploadProps['onError'] = () => {
+  ElMessage.error('图片上传失败，请检查登录状态或网络')
 }
 const cancel = () => {
   dialogFormVisible.value = false

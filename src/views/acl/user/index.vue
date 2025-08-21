@@ -311,7 +311,8 @@ const getHasUser = async (pager = 1) => {
 }
 const handlerSize = (size: number) => {
   pageSize.value = size
-  getHasUser()
+  currentPage.value = 1 // 重置到第一页
+  getHasUser(1)
 }
 const addUser = () => {
   Object.assign(userParams, {
